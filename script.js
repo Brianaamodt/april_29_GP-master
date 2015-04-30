@@ -17,20 +17,16 @@ function searchCallback(results) {
 			platformName += " - " + results[i].platforms[j].name;
 		}
 		$('#searchResults').append(
-				'<div id="result' + i + '" class="col-md-6 well resultHeight text-center hidden">' +
-					'<div id="name"><p>Game: ' + results[i].name + '</p></div>' +
-					'<div id="image"><img  class="hidden-sm hidden-xs image" src="' + results[i].image.small_url + '"/></div>' + '<div class="details"><div id="description" class="bill"><h5>Description:</h5> ' + results[i].deck + '</div>' +
-					'<div id="platforms" class="bill"><h5>Supported Platforms:</h5> ' + platformName + '</div></div><button class="showDet">Show/Hide Detail</button></div>'
+				'<div id="result' + i + '" class="well resultHeight text-center hidden"><div id="name"><p>Game: ' + results[i].name + '</p><img  class="hidden-sm hidden-xs image" src="' + results[i].image.small_url + '"/></div><div id="description" class="bill"><h5>Description:</h5> ' + results[i].deck + '</div><div id="platforms" class="bill"><h5>Supported Platforms:</h5> ' + platformName + '</div></div>'
 			).hide().fadeIn('slow');
 		$('#menu').append('<div class="pgNum" id="item'+ i +'"></div>');
-	}
-	$('.details').hide();
 	$('#searchResults').children().first().removeClass('hidden');
 	$('#item0').addClass('green');
 	interval = 0;
 	maxInt = i;
-};
+	};
 
+}
 
 
 var userInput = "";
@@ -39,37 +35,28 @@ $(document).ready(function() {
 	console.log("Document Ready");
 	$('.searchBtn').on('click', function(){
 		$('#searchResults').empty();
+		$('#searchResults').append("SEARCHING...");
 		userInput = $('#searchField').val();
 		search(userInput);
 	});
-	$("#result" + interval).on("click", ".showDet",function(){
-    $(".details").slideUp(1000);
-    if ($(".details").data("open")){
-        $(".details").data("open", false);
-    }
-    else{
-        $(".details").data("open", true);
-        $(".details").slideDown(1000);
-    }
-	});
-	$('.gallery').on("click", ".right", function (e){
+	$(".gallery").on("click", ".right", function (e){
 		e.preventDefault();
 		interval++;
 			if(interval == 8){
 			interval = 0;
-			}
+			};
 		$('.pgNum').removeClass('green');
 		$('#item'+ interval).addClass('green');
 		$('#searchResults').children().addClass('hidden');
 		$('#searchResults').children('#result' + interval).removeClass('hidden');
 		console.log(interval);
 	});
-	$('.gallery').on("click", ".left", function (e){
+	$(".gallery").on("click", ".left", function (e){
 		e.preventDefault();
 		interval--;
 			if(interval == -1){
 			interval = 7;
-			}
+			};
 		$('.pgNum').removeClass('green');
 		$('#item'+ interval).addClass('green');
 		$('#searchResults').children().addClass('hidden');
@@ -90,12 +77,9 @@ function search(query){
 	    jsonp: 'json_callback',
 	    url: 'http://www.giantbomb.com/api/search/?format=jsonp&resources=game&api_key=' + apikey +'&query=' + encodeURI(query),
 	    complete: function() {
-	    
 	    },
 	    success: function(data) {
-	        searchCallback(data.results);
-	        
+	        searchCallback(data.results);   
 	    }
 	});
-
 }

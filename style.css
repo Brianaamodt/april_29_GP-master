@@ -26,15 +26,23 @@ h2{
     text-align: center;
 }
 .left{
+    width: 75px;
+    margin-right: 75px;
         display: inline-block;
 }
 .right{
+    width: 75px;
+    margin-left: 75px;
         display: inline-block;
 }
+.container{
+    text-align: center;
+
+}
 .pgNum{
-    height: 10px;
-    width: 10px;
-    border-radius: 5px;
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
     background-color: gray;
     display: inline-block;
 }
